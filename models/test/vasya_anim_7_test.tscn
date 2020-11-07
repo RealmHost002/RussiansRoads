@@ -1,15 +1,15 @@
 [gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://models/Vasja/1/vasya_anim_7.dae" type="PackedScene" id=1]
-[ext_resource path="res://models/anims/gears_4_anim.tres" type="Animation" id=2]
-[ext_resource path="res://models/anims/gears_7_anim.tres" type="Animation" id=3]
-[ext_resource path="res://models/anims/gears_5_anim.tres" type="Animation" id=4]
-[ext_resource path="res://models/anims/gears_9_anim.tres" type="Animation" id=5]
-[ext_resource path="res://models/anims/gears_6_anim.tres" type="Animation" id=6]
-[ext_resource path="res://models/anims/gears_3_anim.tres" type="Animation" id=7]
-[ext_resource path="res://models/anims/gears_2_anim.tres" type="Animation" id=8]
+[ext_resource path="res://models/anims/gears_5_anim.tres" type="Animation" id=2]
+[ext_resource path="res://models/anims/gears_9_anim.tres" type="Animation" id=3]
+[ext_resource path="res://models/anims/gears_6_anim.tres" type="Animation" id=4]
+[ext_resource path="res://models/anims/gears_4_anim.tres" type="Animation" id=5]
+[ext_resource path="res://models/anims/gears_7_anim.tres" type="Animation" id=6]
+[ext_resource path="res://models/anims/gears_2_anim.tres" type="Animation" id=7]
+[ext_resource path="res://models/anims/gears_8_anim.tres" type="Animation" id=8]
 [ext_resource path="res://models/anims/gears_1_anim.tres" type="Animation" id=9]
-[ext_resource path="res://models/anims/gears_8_anim.tres" type="Animation" id=10]
+[ext_resource path="res://models/anims/gears_3_anim.tres" type="Animation" id=10]
 
 [sub_resource type="AnimationNodeAnimation" id=1]
 animation = "gears_4_anim"
@@ -61,21 +61,21 @@ blend_point_8/pos = Vector2( 0, -1 )
 [node name="vasya_anim_7" instance=ExtResource( 1 )]
 
 [node name="Cylinder001" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.433304, 0.475989, -0.392259 )
+transform = Transform( 0.999805, 0.000126974, -0.019739, 0.000126974, 0.999917, 0.0128635, 0.019739, -0.0128635, 0.999722, -0.433304, 0.475989, -0.392259 )
 
 [node name="AnimationPlayer" parent="." index="2"]
 anims/gears_1_anim = ExtResource( 9 )
-anims/gears_2_anim = ExtResource( 8 )
-anims/gears_3_anim = ExtResource( 7 )
-anims/gears_4_anim = ExtResource( 2 )
-anims/gears_5_anim = ExtResource( 4 )
-anims/gears_6_anim = ExtResource( 6 )
-anims/gears_7_anim = ExtResource( 3 )
-anims/gears_8_anim = ExtResource( 10 )
-anims/gears_9_anim = ExtResource( 5 )
+anims/gears_2_anim = ExtResource( 7 )
+anims/gears_3_anim = ExtResource( 10 )
+anims/gears_4_anim = ExtResource( 5 )
+anims/gears_5_anim = ExtResource( 2 )
+anims/gears_6_anim = ExtResource( 4 )
+anims/gears_7_anim = ExtResource( 6 )
+anims/gears_8_anim = ExtResource( 8 )
+anims/gears_9_anim = ExtResource( 3 )
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="3"]
 tree_root = SubResource( 10 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/blend_position = Vector2( 0, 0 )
+parameters/blend_position = Vector2( -0.0712608, 0.0431035 )
