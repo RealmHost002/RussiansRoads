@@ -83,24 +83,25 @@ func _input(event):
 func crack():
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
 
+
+func _process(delta):
 #	steering = turn * -0.5
 	rot = lerp(rot, turn, delta * 60 * 0.1)
 	steering = -rot * 0.5
 	var speed = self.linear_velocity.length()
 	var spd_dif = (optimal_speed[gear] - speed) / 10.0
 	while spd_dif > 1:
-		spd_dif = 0
+		spd_dif *= -1
 	if gas:
-		engine_force = gas * 200 * clamp(spd_dif, 0 , 1)
+		engine_force = gas * 200 * clamp(spd_dif, -1 , 1)
 	else:
 		engine_force = 0
 	
 	
 	current_stickstate = lerp(current_stickstate, stickstate, 0.1)
 	get_node("vasya").get_node("AnimationTree").set("parameters/blend_position", current_stickstate)
-	print(self.linear_velocity.length(), '     ', clamp(spd_dif, 0 , 1), '   gear    ' , gear)
+	print(self.linear_velocity.length(), '     ', clamp(spd_dif, -1 , 1), '   gear    ' , gear)
 	pass
 
 func anim_gearstate(state):
