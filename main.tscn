@@ -6,7 +6,7 @@
 [ext_resource path="res://RigidBody.tscn" type="PackedScene" id=4]
 [ext_resource path="res://textures/NormalMap.png" type="Texture" id=5]
 [ext_resource path="res://textures/road_2.jpg" type="Texture" id=6]
-[ext_resource path="res://00292.wav" type="AudioStream" id=7]
+[ext_resource path="res://sound/engine_sound.ogg" type="AudioStream" id=7]
 [ext_resource path="res://textures/GroundForest003 (1)/GroundForest003/REGULAR/1K/GroundForest003_COL_VAR1_1K.jpg" type="Texture" id=8]
 [ext_resource path="res://AudioStreamPlayer.gd" type="Script" id=9]
 
@@ -258,7 +258,7 @@ transform = Transform( -0.530422, -0.701343, 0.476203, 0, 0.561737, 0.827316, -0
 shadow_enabled = true
 
 [node name="RigidBody" parent="." instance=ExtResource( 4 )]
-transform = Transform( 0.38933, -0.00464067, 0.921086, -0.0246423, 0.999577, 0.0154521, -0.920768, -0.0287136, 0.389051, 5.41519, 5.83646, -33.624 )
+transform = Transform( -0.766459, -0.0732695, 0.6381, -0.0588012, 0.997305, 0.0438854, -0.639596, -0.00388473, -0.768701, 5.29579, 5.83647, -29.0924 )
 
 [node name="Position3D2" type="Position3D" parent="RigidBody"]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.50796, -2.34321 )
@@ -325,10 +325,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.207455, 0 )
 visible = false
 mesh = SubResource( 11 )
 material/0 = null
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
-script = ExtResource( 9 )
 
 [node name="trees" type="Spatial" parent="."]
 visible = false
@@ -412,3 +408,8 @@ material/0 = null
 transform = Transform( -0.999571, 0, -0.0293002, 0, 1, 0, 0.0293002, 0, -0.999571, 0.00605392, 3.37757, 19.1137 )
 mesh = SubResource( 12 )
 material/0 = null
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = 2.0
+script = ExtResource( 9 )

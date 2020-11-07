@@ -19,6 +19,10 @@ config/name="Russians Roads"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/fullscreen=true
+
 [input]
 
 ui_left={

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/egor_smotrit.obj-776c78f9110346112261949ad611ded1.mesh"
+
+[deps]
+
+files=[ "res://.import/egor_smotrit.obj-776c78f9110346112261949ad611ded1.mesh" ]
+
+source_file="res://models/Vasja/2/egor_smotrit.obj"
+dest_files=[ "res://.import/egor_smotrit.obj-776c78f9110346112261949ad611ded1.mesh", "res://.import/egor_smotrit.obj-776c78f9110346112261949ad611ded1.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

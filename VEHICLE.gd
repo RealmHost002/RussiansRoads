@@ -8,7 +8,7 @@ var gas = 0
 var turn = 0
 var rot = 0
 var optimal_speed = [5, 10, 15, 20, 25 , 30]
-var gear = 0
+var gear = -1
 var gearstate = 5
 var current_stickstate = Vector2(0,0)
 var stickstate = Vector2(0,0)
@@ -19,6 +19,8 @@ var clutch = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	load_curves()
+#	print(range_curves[0].interpolate(0.3))
 	pass # Replace with function body.
 func _input(event):
 #	if event is InputEventMouseMotion:
@@ -47,59 +49,65 @@ func _input(event):
 		################GEARS################
 	if (event.is_action_pressed("gearU") or event.is_action_pressed("gearD") or event.is_action_pressed("gearUR") or event.is_action_pressed("gearUL") or event.is_action_pressed("gearR") or event.is_action_pressed("gearL") or event.is_action_pressed("gearDR") or event.is_action_pressed("gearDL") or event.is_action_pressed("gearM")) and !clutch:
 		return
-		print('pepiska')
+
 	if event.is_action_pressed("gearU"):
 		if gearstate == 5:
 			gearstate = 8
-			gear = 3
+			gear = 2
 		else:
 			gearbox_crack()
 	if event.is_action_pressed("gearD"):
 		if gearstate == 5:
 			gearstate = 2
-			gear = 4
+			gear = 3
 		else:
 			gearbox_crack()
 	if event.is_action_pressed("gearUR"):
 		if gearstate == 6:
 			gearstate = 9
-			gear = 5
+			gear = 4
 		else:
 			gearbox_crack()
 	if event.is_action_pressed("gearUL"):
 		if gearstate == 4:
 			gearstate = 7
-			gear = 1
+			gear = 0
 		else:
 			gearbox_crack()
 	if event.is_action_pressed("gearR"):
 		if gearstate == 5:
 			gearstate = 6
+			gear = -1
 		elif gearstate == 3:
 			gearstate = 6
+			gear = -1
 		elif gearstate == 9:
 			gearstate = 6
+			gear = -1
 		else:
 			gearbox_crack()
 	if event.is_action_pressed("gearL"):
 		if gearstate == 5:
 			gearstate = 4
+			gear = -1
 		elif gearstate == 7:
 			gearstate = 4
+			gear = -1
 		elif gearstate == 1:
 			gearstate = 4
+			gear = -1
 		else:
 			gearbox_crack()
 	if event.is_action_pressed("gearDR"):
 		if gearstate == 6:
 			gearstate = 3
-			gear = 6
+			gear = 5
 		else:
 			gearbox_crack()
 	if event.is_action_pressed("gearDL"):
 		if gearstate == 4:
 			gearstate = 1
-			gear = 2
+			gear = 1
 		else:
 			gearbox_crack()
 	if event.is_action_pressed("gearM"):
@@ -111,13 +119,10 @@ func _input(event):
 	
 	
 	if event.is_action_pressed("starter"):
-		working = !working
+		if gear == -1 or clutch:
+			working = !working
 	if event.is_action_pressed("clutch") or event.is_action_released("clutch"):
 		clutch = !clutch
-	
-	
-	
-	
 	
 	
 	
@@ -153,22 +158,25 @@ func _process(delta):
 	
 	var speed = self.linear_velocity.length()
 	var spd_dif = 0
-	if gear > 0:
-		spd_dif = (optimal_speed[gear] - speed) / 10.0
+	if gear != -1:
+		spd_dif = range_curves[gear].interpolate(speed * 3.6 / 100.0)
+#	if gear > 0:
+#		spd_dif = (optimal_speed[gear] - speed) / 10.0
 #	if sign(self.linear_velocity.cross(right).y) > 0:
 		
-	if spd_dif > 1:
+	if spd_dif < -1:
 		crack()
-	
+
+#	clamp(self.linear_velocity.length() / 8, 1, 2)
 	if gas:
-		engine_force = gas * 200 * clamp(spd_dif, -1 , 1) * clamp(self.linear_velocity.length() / 8, 1, 2) * int(!clutch)
+		engine_force = gas * 200 * clamp(spd_dif, -1 , 1) * int(!clutch)
 	else:
 		engine_force = 0
 	
 	
 #	current_stickstate = lerp(current_stickstate, stickstate, 0.1)
 #	get_node("vasya").get_node("AnimationTree").set("parameters/blend_position", current_stickstate)
-	print(self.linear_velocity.length(), '     ', clamp(spd_dif, -1 , 1), '   gear    ' , gear)
+	print(self.linear_velocity.length() * 3.6, '     ', clamp(spd_dif, -1 , 1), '   gear    ' , gear)
 	pass
 
 func anim_gearstate(state):
@@ -209,6 +217,9 @@ func anim_gearstate(state):
 	if gearstate == 2:
 #		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(0,-1))
 		stickstate = Vector2(0,-1)
-
+var range_curves = []
+func load_curves():
+	for i in range(5):
+		i += 1
+		range_curves.append(load("res://curves/" + str(i) + ".tres"))
 	
-	pass
