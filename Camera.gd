@@ -6,7 +6,7 @@ extends Camera
 # var b = "text"
 func _input(event):
 	if event is InputEventMouseMotion:
-		print(event.relative)
+#		print(event.relative)
 		self.rotation_degrees.y -= event.relative.x / 15.0
 		self.rotation_degrees.x -= event.relative.y / 15.0
 

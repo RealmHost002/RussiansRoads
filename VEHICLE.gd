@@ -7,7 +7,7 @@ extends VehicleBody
 var gas = 0
 var turn = 0
 var rot = 0
-var optimal_speed = [10, 15, 20, 25]
+var optimal_speed = [5, 10, 15, 20, 25]
 var gear = 0
 var gearstate = 5
 var current_stickstate = Vector2(0,0)
@@ -100,7 +100,7 @@ func _process(delta):
 	
 	current_stickstate = lerp(current_stickstate, stickstate, 0.1)
 	get_node("vasya").get_node("AnimationTree").set("parameters/blend_position", current_stickstate)
-#	print(self.linear_velocity.length(), '     ', clamp(spd_dif, 0 , 1))
+	print(self.linear_velocity.length(), '     ', clamp(spd_dif, 0 , 1), '   gear    ' , gear)
 	pass
 
 func anim_gearstate(state):
