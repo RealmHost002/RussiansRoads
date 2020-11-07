@@ -258,7 +258,7 @@ transform = Transform( -0.530422, -0.701343, 0.476203, 0, 0.561737, 0.827316, -0
 shadow_enabled = true
 
 [node name="RigidBody" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.766459, -0.0732695, 0.6381, -0.0588012, 0.997305, 0.0438854, -0.639596, -0.00388473, -0.768701, 5.29579, 5.83647, -29.0924 )
+transform = Transform( 0.38933, -0.00464067, 0.921086, -0.0246423, 0.999577, 0.0154521, -0.920768, -0.0287136, 0.389051, 5.41519, 5.83646, -33.624 )
 
 [node name="Position3D2" type="Position3D" parent="RigidBody"]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.50796, -2.34321 )
