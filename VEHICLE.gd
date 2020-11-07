@@ -69,7 +69,7 @@ func _input(event):
 	if event.is_action_pressed("gearUL"):
 		if gearstate == 4:
 			gearstate = 7
-			gear = 2
+			gear = 1
 		else:
 			gearbox_crack()
 	if event.is_action_pressed("gearR"):
@@ -99,7 +99,7 @@ func _input(event):
 	if event.is_action_pressed("gearDL"):
 		if gearstate == 4:
 			gearstate = 1
-			gear = 1
+			gear = 2
 		else:
 			gearbox_crack()
 	if event.is_action_pressed("gearM"):
