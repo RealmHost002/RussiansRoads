@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://textures/old_grass.jpg" type="Texture" id=1]
 [ext_resource path="res://textures/grass-texture-35.jpg" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://textures/road_2.jpg" type="Texture" id=6]
 [ext_resource path="res://00292.wav" type="AudioStream" id=7]
 [ext_resource path="res://textures/GroundForest003 (1)/GroundForest003/REGULAR/1K/GroundForest003_COL_VAR1_1K.jpg" type="Texture" id=8]
+[ext_resource path="res://AudioStreamPlayer.gd" type="Script" id=9]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 20, 20 )
@@ -327,6 +328,7 @@ material/0 = null
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+script = ExtResource( 9 )
 
 [node name="trees" type="Spatial" parent="."]
 visible = false

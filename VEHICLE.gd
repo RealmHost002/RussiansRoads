@@ -7,6 +7,11 @@ extends VehicleBody
 var gas = 0
 var turn = 0
 var rot = 0
+var optimal_speed = [10, 15, 20, 25]
+var gear = 0
+var gearstate = 5
+var current_stickstate = Vector2(0,0)
+var stickstate = Vector2(0,0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -14,7 +19,12 @@ func _input(event):
 #	if event is InputEventMouseMotion:
 #		self.steering = -(event.position.x - 500)/500
 #		self.engine_force = -(event.position.y - 300)/5
-#		print(event.position)
+	if event.is_action_pressed("gear_up"):
+		gear += 1
+		print(gear)
+	if event.is_action_pressed("gear_down"):
+		gear -= 1
+		print(gear)
 	if event.is_action_pressed("ui_up"):
 		gas = 1.0
 	if event.is_action_pressed("ui_down"):
@@ -27,16 +37,111 @@ func _input(event):
 		turn = 0
 	if event.is_action_released("ui_up") or event.is_action_released("ui_down"):
 		gas = 0
+		
+		
+		################GEARS################
+	if event.is_action_pressed("gearU"):
+		if gearstate == 5:
+			gearstate = 8
+	if event.is_action_pressed("gearD"):
+		if gearstate == 5:
+			gearstate = 2
+	if event.is_action_pressed("gearUR"):
+		if gearstate == 6:
+			gearstate = 9
+	if event.is_action_pressed("gearUL"):
+		if gearstate == 4:
+			gearstate = 7
+	if event.is_action_pressed("gearR"):
+		if gearstate == 5:
+			gearstate = 6
+		if gearstate == 3:
+			gearstate = 6
+		if gearstate == 9:
+			gearstate = 6
+	if event.is_action_pressed("gearL"):
+		if gearstate == 5:
+			gearstate = 4
+		if gearstate == 7:
+			gearstate = 4
+		if gearstate == 1:
+			gearstate = 4
+	if event.is_action_pressed("gearDR"):
+		if gearstate == 6:
+			gearstate = 3
+	if event.is_action_pressed("gearDL"):
+		if gearstate == 4:
+			gearstate = 1
+	if event.is_action_pressed("gearM"):
+		gearstate = 5
+	
+	anim_gearstate(gearstate)
+	
+	
+	
+	
+func crack():
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if gas:
-		engine_force = gas * 100
-	else:
-		engine_force = 0
-	
+
 #	steering = turn * -0.5
 	rot = lerp(rot, turn, delta * 60 * 0.1)
 	steering = -rot * 0.5
-#	steering
-#	engine_force = 100
+	var speed = self.linear_velocity.length()
+	var spd_dif = (optimal_speed[gear] - speed) / 10.0
+	while spd_dif > 1:
+		spd_dif = 0
+	if gas:
+		engine_force = gas * 200 * clamp(spd_dif, 0 , 1)
+	else:
+		engine_force = 0
+	
+	
+	current_stickstate = lerp(current_stickstate, stickstate, 0.1)
+	get_node("vasya").get_node("AnimationTree").set("parameters/blend_position", current_stickstate)
+#	print(self.linear_velocity.length(), '     ', clamp(spd_dif, 0 , 1))
+	pass
+
+func anim_gearstate(state):
+#	print(state)
+#	print(get_node("vasya").get_node("AnimationTree").get("parameters/blend_position"))
+	if gearstate == 7:
+#		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position", Vector2(-1,1))
+		stickstate = Vector2(-1,1)
+		
+	if gearstate == 4:
+#		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position", Vector2(-1,0))
+		stickstate = Vector2(-1,0)
+		
+	if gearstate == 1:
+#		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position", Vector2(-1,-1))
+		stickstate = Vector2(-1,-1)
+		
+	if gearstate == 9:
+#		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(1,1))
+		stickstate = Vector2(1,1)
+		
+	if gearstate == 6:
+#		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(1,0))
+		stickstate = Vector2(1,0)
+		
+	if gearstate == 3:
+#		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(1,-1))
+		stickstate = Vector2(1,-1)
+		
+	if gearstate == 8:
+#		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(0,1))
+		stickstate = Vector2(0,1)
+		
+	if gearstate == 5:
+#		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(0,0))
+		stickstate =  Vector2(0,0)
+	
+	if gearstate == 2:
+#		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(0,-1))
+		stickstate = Vector2(0,-1)
+	
+	
+	
 	pass
