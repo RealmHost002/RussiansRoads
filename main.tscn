@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://textures/old_grass.jpg" type="Texture" id=1]
 [ext_resource path="res://textures/grass-texture-35.jpg" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://sound/engine_sound.ogg" type="AudioStream" id=7]
 [ext_resource path="res://textures/GroundForest003 (1)/GroundForest003/REGULAR/1K/GroundForest003_COL_VAR1_1K.jpg" type="Texture" id=8]
 [ext_resource path="res://AudioStreamPlayer.gd" type="Script" id=9]
+[ext_resource path="res://textures/gui/smoke.tscn" type="PackedScene" id=10]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 20, 20 )
@@ -413,3 +414,5 @@ material/0 = null
 stream = ExtResource( 7 )
 volume_db = 2.0
 script = ExtResource( 9 )
+
+[node name="Gui" parent="." instance=ExtResource( 10 )]
