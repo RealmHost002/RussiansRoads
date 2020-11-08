@@ -131,7 +131,8 @@ func _input(event):
 	
 	
 	
-	anim_gearstate(gearstate)
+	if (event.is_action_pressed("gearU") or event.is_action_pressed("gearD") or event.is_action_pressed("gearUR") or event.is_action_pressed("gearUL") or event.is_action_pressed("gearR") or event.is_action_pressed("gearL") or event.is_action_pressed("gearDR") or event.is_action_pressed("gearDL") or event.is_action_pressed("gearM")) and clutch:
+		anim_gearstate(gearstate)
 	
 	
 func gearbox_crack():

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/change_gear1.ogg-fa6064449342edc24688eb6c819ecf09.og
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
