@@ -9,7 +9,9 @@ var move = Vector3(0,0,0)
 var rotation_ = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+#	if !self.current:
+#		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+#		return
 	pass # Replace with function body.
 	
 
@@ -79,5 +81,7 @@ func _input(event):
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if !self.current:
+		return
 	self.global_transform.origin -= move.rotated(Vector3(0,1,0), self.rotation.y) * delta * 25
 	self.rotate_y(rotation_ * delta)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://textures/old_grass.jpg" type="Texture" id=1]
 [ext_resource path="res://textures/grass-texture-35.jpg" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://textures/GroundForest003 (1)/GroundForest003/REGULAR/1K/GroundForest003_COL_VAR1_1K.jpg" type="Texture" id=8]
 [ext_resource path="res://AudioStreamPlayer.gd" type="Script" id=9]
 [ext_resource path="res://textures/gui/smoke.tscn" type="PackedScene" id=10]
+[ext_resource path="res://tree_maker.gd" type="Script" id=11]
+[ext_resource path="res://trees.gd" type="Script" id=12]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 20, 20 )
@@ -244,9 +246,6 @@ shader_param/texture_albedo = ExtResource( 8 )
 [sub_resource type="PlaneMesh" id=11]
 size = Vector2( 100, 100 )
 
-[sub_resource type="PrismMesh" id=12]
-size = Vector3( 2, 8, 2 )
-
 [node name="Spatial" type="Spatial"]
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -329,86 +328,7 @@ material/0 = null
 
 [node name="trees" type="Spatial" parent="."]
 visible = false
-
-[node name="MeshInstance" type="MeshInstance" parent="trees"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4723, 5.35695, -4.01834 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance2" type="MeshInstance" parent="trees"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7262, 5.35695, -10.4438 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="trees"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.2969, 4.33024, 1.7414 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance4" type="MeshInstance" parent="trees"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5509, 4.33024, -4.68403 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance5" type="MeshInstance" parent="trees"]
-transform = Transform( 0.0482742, 0, 0.998834, 0, 1, 0, -0.998834, 0, 0.0482742, 17.0301, 4.40427, 16.036 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance6" type="MeshInstance" parent="trees"]
-transform = Transform( 0.0482742, 0, 0.998834, 0, 1, 0, -0.998834, 0, 0.0482742, 10.7692, 4.40427, 12.4757 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance7" type="MeshInstance" parent="trees"]
-transform = Transform( 0.0482742, 0, 0.998834, 0, 1, 0, -0.998834, 0, 0.0482742, 23.1608, 3.37757, 8.49853 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance8" type="MeshInstance" parent="trees"]
-transform = Transform( 0.0482742, 0, 0.998834, 0, 1, 0, -0.998834, 0, 0.0482742, 16.9, 3.37757, 4.93818 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance9" type="MeshInstance" parent="trees"]
-transform = Transform( -0.0775196, 0, 0.996991, 0, 1, 0, -0.996991, 0, -0.0775196, -8.81284, 5.35695, 21.2315 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance10" type="MeshInstance" parent="trees"]
-transform = Transform( -0.0775196, 0, 0.996991, 0, 1, 0, -0.996991, 0, -0.0775196, -15.4712, 5.35695, 18.4854 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance11" type="MeshInstance" parent="trees"]
-transform = Transform( -0.0775196, 0, 0.996991, 0, 1, 0, -0.996991, 0, -0.0775196, -3.677, 4.33024, 12.9838 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance12" type="MeshInstance" parent="trees"]
-transform = Transform( -0.0775196, 0, 0.996991, 0, 1, 0, -0.996991, 0, -0.0775196, -10.3353, 4.33024, 10.2378 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance13" type="MeshInstance" parent="trees"]
-transform = Transform( -0.999571, 0, -0.0293002, 0, 1, 0, 0.0293002, 0, -0.999571, 11.0604, 4.40427, 18.1237 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance14" type="MeshInstance" parent="trees"]
-transform = Transform( -0.999571, 0, -0.0293002, 0, 1, 0, 0.0293002, 0, -0.999571, 7.99613, 4.40427, 24.6417 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance15" type="MeshInstance" parent="trees"]
-transform = Transform( -0.999571, 0, -0.0293002, 0, 1, 0, 0.0293002, 0, -0.999571, 3.07034, 3.37757, 12.5957 )
-mesh = SubResource( 12 )
-material/0 = null
-
-[node name="MeshInstance16" type="MeshInstance" parent="trees"]
-transform = Transform( -0.999571, 0, -0.0293002, 0, 1, 0, 0.0293002, 0, -0.999571, 0.00605392, 3.37757, 19.1137 )
-mesh = SubResource( 12 )
-material/0 = null
+script = ExtResource( 12 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
@@ -416,3 +336,8 @@ volume_db = 2.0
 script = ExtResource( 9 )
 
 [node name="Gui" parent="." instance=ExtResource( 10 )]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 20.6396, 0 )
+far = 500.0
+script = ExtResource( 11 )
