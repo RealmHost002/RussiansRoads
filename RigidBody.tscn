@@ -170,5 +170,7 @@ shape = SubResource( 6 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
+
+[node name="gear_sound" type="AudioStreamPlayer" parent="."]
 [connection signal="mouse_entered" from="egor_smotrit/StaticBody" to="egor_smotrit" method="_on_window_mouse_entered"]
 [connection signal="mouse_exited" from="egor_smotrit/StaticBody" to="egor_smotrit" method="_on_window_mouse_exited"]

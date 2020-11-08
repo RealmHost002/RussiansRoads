@@ -15,6 +15,8 @@ var stickstate = Vector2(0,0)
 var right = Vector3(0,0,0)
 var working = false
 var clutch = false
+var gear_sound1 = load("res://sound/change_gear1.ogg")
+var gear_sound2 = load("res://sound/change_gear2.ogg")
 var stalled_sound = load("res://sound/stalled.ogg")
 var engine_sound = load("res://sound/starting_engine.ogg")
 # Called when the node enters the scene tree for the first time.
@@ -188,30 +190,44 @@ func anim_gearstate(state):
 #	print(state)
 #	print(get_node("vasya").get_node("AnimationTree").get("parameters/blend_position"))
 	if gearstate == 7:
+		get_node("gear_sound").stream = gear_sound2
+		get_node("gear_sound").play()
 #		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position", Vector2(-1,1))
 		stickstate = Vector2(-1,1)
 		
 	if gearstate == 4:
+		get_node("gear_sound").stream = gear_sound1
+		get_node("gear_sound").play()
 #		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position", Vector2(-1,0))
 		stickstate = Vector2(-1,0)
 		
 	if gearstate == 1:
+		get_node("gear_sound").stream = gear_sound2
+		get_node("gear_sound").play()
 #		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position", Vector2(-1,-1))
 		stickstate = Vector2(-1,-1)
 		
 	if gearstate == 9:
+		get_node("gear_sound").stream = gear_sound2
+		get_node("gear_sound").play()
 #		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(1,1))
 		stickstate = Vector2(1,1)
 		
 	if gearstate == 6:
+		get_node("gear_sound").stream = gear_sound1
+		get_node("gear_sound").play()
 #		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(1,0))
 		stickstate = Vector2(1,0)
 		
 	if gearstate == 3:
+		get_node("gear_sound").stream = gear_sound2
+		get_node("gear_sound").play()
 #		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(1,-1))
 		stickstate = Vector2(1,-1)
 		
 	if gearstate == 8:
+		get_node("gear_sound").stream = gear_sound1
+		get_node("gear_sound").play()
 #		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(0,1))
 		stickstate = Vector2(0,1)
 		
@@ -220,6 +236,8 @@ func anim_gearstate(state):
 		stickstate =  Vector2(0,0)
 	
 	if gearstate == 2:
+		get_node("gear_sound").stream = gear_sound1
+		get_node("gear_sound").play()
 #		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(0,-1))
 		stickstate = Vector2(0,-1)
 var range_curves = []

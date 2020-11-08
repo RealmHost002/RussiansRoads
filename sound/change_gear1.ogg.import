@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/change_gear1.ogg-fa6064449342edc24688eb6c819ecf09.oggstr"
+
+[deps]
+
+source_file="res://sound/change_gear1.ogg"
+dest_files=[ "res://.import/change_gear1.ogg-fa6064449342edc24688eb6c819ecf09.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
