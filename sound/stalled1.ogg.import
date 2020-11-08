@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/stalled1.ogg-a0d54e65e83693a79ca625f65d9872ed.oggstr"
+
+[deps]
+
+source_file="res://sound/stalled1.ogg"
+dest_files=[ "res://.import/stalled1.ogg-a0d54e65e83693a79ca625f65d9872ed.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

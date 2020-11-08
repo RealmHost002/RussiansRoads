@@ -19,7 +19,7 @@ var gear_cracked = false
 var gearbox_crack_sound = load("res://sound/gearbox_crack.ogg")
 var gear_sound1 = load("res://sound/change_gear1.ogg")
 var gear_sound2 = load("res://sound/change_gear2.ogg")
-var stalled_sound = load("res://sound/stalled.ogg")
+var stalled_sound = load("res://sound/stalled1.ogg")
 var engine_sound = load("res://sound/starting_engine.ogg")
 # Called when the node enters the scene tree for the first time.
 func _ready():
