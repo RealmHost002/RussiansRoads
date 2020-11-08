@@ -15,8 +15,8 @@ var stickstate = Vector2(0,0)
 var right = Vector3(0,0,0)
 var working = false
 var clutch = false
-
-
+var stalled_sound = load("res://sound/stalled.ogg")
+var engine_sound = load("res://sound/starting_engine.ogg")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	load_curves()
@@ -48,6 +48,7 @@ func _input(event):
 
 		################GEARS################
 	if (event.is_action_pressed("gearU") or event.is_action_pressed("gearD") or event.is_action_pressed("gearUR") or event.is_action_pressed("gearUL") or event.is_action_pressed("gearR") or event.is_action_pressed("gearL") or event.is_action_pressed("gearDR") or event.is_action_pressed("gearDL") or event.is_action_pressed("gearM")) and !clutch:
+		
 		return
 
 	if event.is_action_pressed("gearU"):
@@ -121,6 +122,7 @@ func _input(event):
 	if event.is_action_pressed("starter"):
 		if gear == -1 or clutch:
 			working = !working
+			get_node("AudioStreamPlayer").stream = engine_sound
 			get_node("AudioStreamPlayer").play()
 	if event.is_action_pressed("clutch") or event.is_action_released("clutch"):
 		clutch = !clutch
@@ -134,6 +136,8 @@ func gearbox_crack():
 	pass
 	
 func crack():
+	get_node("AudioStreamPlayer").stream = stalled_sound
+	get_node("AudioStreamPlayer").play()
 	working = false
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
