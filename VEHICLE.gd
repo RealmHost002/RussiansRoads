@@ -51,9 +51,17 @@ func _input(event):
 
 
 		################GEARS################
+	if (event.is_action_pressed("gearU") or event.is_action_pressed("gearD") or event.is_action_pressed("gearUR") or event.is_action_pressed("gearUL") or event.is_action_pressed("gearR") or event.is_action_pressed("gearL") or event.is_action_pressed("gearDR") or event.is_action_pressed("gearDL") or event.is_action_pressed("gearM")) and !clutch:
+		gearbox_crack()
+		return
+		
+		
 	if (event.is_action_pressed("gearU") or event.is_action_pressed("gearD") or event.is_action_pressed("gearUR") or event.is_action_pressed("gearUL") or event.is_action_pressed("gearR") or event.is_action_pressed("gearL") or event.is_action_pressed("gearDR") or event.is_action_pressed("gearDL") or event.is_action_pressed("gearM")) and (!clutch or gear_cracked):
 		
 		return
+#	if (event.is_action_pressed("gearU") or event.is_action_pressed("gearD") or event.is_action_pressed("gearUR") or event.is_action_pressed("gearUL") or event.is_action_pressed("gearR") or event.is_action_pressed("gearL") or event.is_action_pressed("gearDR") or event.is_action_pressed("gearDL") or event.is_action_pressed("gearM")) and !clutch:
+#		gearbox_crack()
+
 
 	if event.is_action_pressed("gearU"):
 		if gearstate == 5:
@@ -134,12 +142,13 @@ func _input(event):
 	
 	
 	
-	if (event.is_action_pressed("gearU") or event.is_action_pressed("gearD") or event.is_action_pressed("gearUR") or event.is_action_pressed("gearUL") or event.is_action_pressed("gearR") or event.is_action_pressed("gearL") or event.is_action_pressed("gearDR") or event.is_action_pressed("gearDL") or event.is_action_pressed("gearM")) and clutch:
+	if (event.is_action_pressed("gearU") or event.is_action_pressed("gearD") or event.is_action_pressed("gearUR") or event.is_action_pressed("gearUL") or event.is_action_pressed("gearR") or event.is_action_pressed("gearL") or event.is_action_pressed("gearDR") or event.is_action_pressed("gearDL") or event.is_action_pressed("gearM")) and clutch and !gear_cracked:
 		anim_gearstate(gearstate)
-	
+		print('animed')
 	
 func gearbox_crack():
-	gear_cracked = false
+	print('cracked')
+	gear_cracked = true
 	get_node("gear_crack_timer").start()
 	get_node("gear_sound").stream = gearbox_crack_sound
 	get_node("gear_sound").play()
