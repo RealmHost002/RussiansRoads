@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://models/Vasja/2/egor_smotrit.dae" type="PackedScene" id=1]
 [ext_resource path="res://models/anims/smoking/stryahivating.tres" type="Animation" id=2]
@@ -80,6 +80,23 @@ nodes/stryah/node = SubResource( 7 )
 nodes/stryah/position = Vector2( -660, 400 )
 node_connections = [ "output", 0, "final_mix", "final_mix", 0, "sitting", "final_mix", 1, "TimeScale", "smoking_mix", 0, "SeekSmoke", "smoking_mix", 1, "SeekStryah", "TimeScale", 0, "smoking_mix", "SeekStryah", 0, "stryah", "SeekSmoke", 0, "smoking" ]
 
+[sub_resource type="CubeMesh" id=12]
+size = Vector3( 0.01, 0.01, 0.1 )
+
+[sub_resource type="SpatialMaterial" id=13]
+flags_unshaded = true
+params_blend_mode = 1
+params_cull_mode = 2
+params_depth_draw_mode = 2
+albedo_color = Color( 0.0509804, 0.0509804, 0.0509804, 1 )
+
+[sub_resource type="SphereMesh" id=14]
+material = SubResource( 13 )
+radius = 0.1
+height = 0.2
+radial_segments = 4
+rings = 2
+
 [node name="egor_smotrit" instance=ExtResource( 1 )]
 script = ExtResource( 6 )
 
@@ -103,11 +120,27 @@ parameters/final_mix/blend_amount = 1.0
 parameters/smoking_mix/blend_amount = 0.0
 
 [node name="Camera2" type="Camera" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00354123, 1.17118, 0.114879 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00354123, 1.21872, 0.055466 )
 current = true
 far = 700.0
 script = ExtResource( 7 )
 
 [node name="Timer" type="Timer" parent="." index="4"]
 one_shot = true
+
+[node name="MeshInstance" type="MeshInstance" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 0.997471, 0.0710622, 0, -0.0710622, 0.997471, 0.135832, 0.648907, -0.221008 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Particles" type="CPUParticles" parent="MeshInstance" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 1.49012e-08, 0, 0, 1, 0, -0.00633425, -0.0608084 )
+amount = 30
+fract_delta = false
+local_coords = false
+mesh = SubResource( 14 )
+direction = Vector3( 0, 1, 0 )
+spread = 5.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 0.4
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

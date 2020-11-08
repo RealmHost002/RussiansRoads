@@ -142,3 +142,27 @@ tracks/18/keys = {
 "update": 0,
 "values": [ Vector3( -0.461, 1.142, -0.301 ), Vector3( -0.461, 1.142, -0.301 ) ]
 }
+tracks/19/type = "value"
+tracks/19/path = NodePath("MeshInstance:rotation_degrees")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0, 10.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.644496, -89.1889, -8.76648 ), Vector3( 0.644496, -89.1889, -8.76648 ) ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("MeshInstance:translation")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0, 10.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.234861, 1.03129, -0.440497 ), Vector3( -0.234861, 1.03129, -0.440497 ) ]
+}

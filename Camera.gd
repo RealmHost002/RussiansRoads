@@ -14,12 +14,12 @@ func _input(event):
 		var from = self.project_ray_origin(event.position)
 		var to = from + self.project_ray_normal(event.position) * 5
 		var space_state = get_world().direct_space_state
-		var result = space_state.intersect_ray(from, to, [get_parent().get_parent()])
+		var result = space_state.intersect_ray(from, to, [get_parent().get_parent()], 2)
 		if result:
 			get_parent().on_window = true
 		else:
 			get_parent().on_window = false
-		print(result)
+#		print(result)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

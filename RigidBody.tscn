@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://VEHICLE.gd" type="Script" id=1]
 [ext_resource path="res://models/semer_ochka.tres" type="ArrayMesh" id=2]
@@ -12,6 +12,14 @@
 [ext_resource path="res://models/materials/glass_mat.tres" type="Material" id=10]
 [ext_resource path="res://models/test/vasya_anim_7.tscn" type="PackedScene" id=11]
 [ext_resource path="res://models/test/egor_smotrit.tscn" type="PackedScene" id=12]
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.806452, 1 )
+colors = PoolColorArray( 0, 0.015625, 1, 1, 1, 0.915741, 0.0195313, 1, 0.917969, 0.0932312, 0.0932312, 1 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+width = 70
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.792202
@@ -57,6 +65,10 @@ spot_angle = 39.595
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.221946, 1.40752, 0.147957 )
 visible = false
 editor_only = true
+
+[node name="Sprite3D" type="Sprite3D" parent="semer_ochka"]
+transform = Transform( 1, -2.08093e-07, 7.51028e-08, 2.08093e-07, 0.769511, -0.638634, 7.51028e-08, 0.638634, 0.769511, -0.13621, 1.51608, -0.55771 )
+texture = SubResource( 6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.961394, 0.0619603 )
@@ -148,6 +160,8 @@ transform = Transform( 0.994888, -0.0324778, 0.0956218, -1.04792e-07, 0.946874, 
 script = ExtResource( 3 )
 
 [node name="StaticBody" type="StaticBody" parent="egor_smotrit"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="egor_smotrit/StaticBody"]
 transform = Transform( 0.952055, -0.305928, -1.56226e-08, 0.305928, 0.952055, 9.96839e-08, -1.56226e-08, -9.96839e-08, 1, 0.283125, 1.09952, 0.113651 )
