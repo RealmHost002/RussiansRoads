@@ -3,6 +3,7 @@
 [resource]
 resource_name = "default"
 length = 10.4167
+loop = true
 tracks/0/type = "transform"
 tracks/0/path = NodePath("Armature002")
 tracks/0/interp = 1
@@ -140,16 +141,4 @@ tracks/18/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector3( -0.461, 1.142, -0.301 ), Vector3( -0.461, 1.142, -0.301 ) ]
-}
-tracks/19/type = "value"
-tracks/19/path = NodePath("Camera2:rotation_degrees")
-tracks/19/interp = 1
-tracks/19/loop_wrap = true
-tracks/19/imported = false
-tracks/19/enabled = true
-tracks/19/keys = {
-"times": PoolRealArray( 0, 10.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ) ]
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://VEHICLE.gd" type="Script" id=1]
 [ext_resource path="res://models/semer_ochka.tres" type="ArrayMesh" id=2]
@@ -25,6 +25,9 @@ height = 0.6
 top_radius = 0.3
 bottom_radius = 0.3
 height = 0.235
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.0946444, 0.218461, 0.219492 )
 
 [node name="RigidBody" type="VehicleBody"]
 linear_damp = 0.1
@@ -142,5 +145,12 @@ transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, -0.5406
 
 [node name="Camera" type="Camera" parent="egor_smotrit"]
 transform = Transform( 0.994888, -0.0324778, 0.0956218, -1.04792e-07, 0.946874, 0.321605, -0.100987, -0.319961, 0.942033, -0.46124, 1.14154, -0.301222 )
-current = true
 script = ExtResource( 3 )
+
+[node name="StaticBody" type="StaticBody" parent="egor_smotrit"]
+
+[node name="CollisionShape" type="CollisionShape" parent="egor_smotrit/StaticBody"]
+transform = Transform( 0.952055, -0.305928, -1.56226e-08, 0.305928, 0.952055, 9.96839e-08, -1.56226e-08, -9.96839e-08, 1, 0.283125, 1.09952, 0.113651 )
+shape = SubResource( 4 )
+[connection signal="mouse_entered" from="egor_smotrit/StaticBody" to="egor_smotrit" method="_on_window_mouse_entered"]
+[connection signal="mouse_exited" from="egor_smotrit/StaticBody" to="egor_smotrit" method="_on_window_mouse_exited"]

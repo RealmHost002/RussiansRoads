@@ -164,7 +164,7 @@ func _process(delta):
 #		spd_dif = (optimal_speed[gear] - speed) / 10.0
 #	if sign(self.linear_velocity.cross(right).y) > 0:
 		
-	if spd_dif < -1:
+	if spd_dif < -1.1:
 		crack()
 
 #	clamp(self.linear_velocity.length() / 8, 1, 2)
