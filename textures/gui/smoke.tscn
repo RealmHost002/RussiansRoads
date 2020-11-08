@@ -1,14 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://textures/gui/Middlebutton.png" type="Texture" id=1]
 [ext_resource path="res://textures/gui/2.png" type="Texture" id=2]
 [ext_resource path="res://textures/gui/1.png" type="Texture" id=3]
+[ext_resource path="res://textures/gui/smoke.gd" type="Script" id=4]
+[ext_resource path="res://textures/gui/gameover.png" type="Texture" id=5]
 
 [node name="Gui" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -0.374577
 margin_bottom = -0.374573
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -56,3 +59,21 @@ margin_right = 74.0
 margin_bottom = 46.0
 grow_horizontal = 2
 text = "Egor is fine"
+
+[node name="gameover" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gameover" type="Sprite" parent="gameover"]
+texture = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="gameover"]
+margin_left = -27.7182
+margin_top = 66.1458
+margin_right = 12.2818
+margin_bottom = 80.1458

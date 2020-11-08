@@ -54,7 +54,8 @@ func _input(event):
 			if count_of_puff == 3:
 				gui_node.get_node("TextureProgress/Label").text = "You need to shake off the ash!"
 			if count_of_puff == 4:
-				gui_node.get_node("TextureProgress/Label").text = "Pezda"	
+				gui_node.get_node("TextureProgress/Label").text = "Pezda"
+				gui_node.game_over("Ash dropped down to gasoline back")	
 			gui_node.get_node("Control").hide()
 			anim_node['parameters/TimeScale/scale'] = 1
 			anim_node['parameters/smoking_mix/blend_amount'] = 0.0
@@ -85,6 +86,7 @@ func _process(delta):
 	if siga_progress_value.value < 30 and siga_progress_value.value >= 0 and count_of_puff != 3:
 		gui_node.get_node("TextureProgress/Label").text = "Egor is fine"  	
 	if siga_progress_value.value == 100:
+		gui_node.game_over("Egor goes crazy(")	
 		gui_node.get_node("TextureProgress/Label").text = "Pizda" 
 	if on_window :
 		gui_node.get_node("Control").show()
