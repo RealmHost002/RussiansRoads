@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/gearbox_crack.ogg-18230de63523b0a629dca5d7dd0e2ea3.oggstr"
+
+[deps]
+
+source_file="res://sound/gearbox_crack.ogg"
+dest_files=[ "res://.import/gearbox_crack.ogg-18230de63523b0a629dca5d7dd0e2ea3.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

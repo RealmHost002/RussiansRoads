@@ -15,6 +15,8 @@ var stickstate = Vector2(0,0)
 var right = Vector3(0,0,0)
 var working = false
 var clutch = false
+var gear_cracked = false
+var gearbox_crack_sound = load("res://sound/gearbox_crack.ogg")
 var gear_sound1 = load("res://sound/change_gear1.ogg")
 var gear_sound2 = load("res://sound/change_gear2.ogg")
 var stalled_sound = load("res://sound/stalled.ogg")
@@ -49,7 +51,7 @@ func _input(event):
 
 
 		################GEARS################
-	if (event.is_action_pressed("gearU") or event.is_action_pressed("gearD") or event.is_action_pressed("gearUR") or event.is_action_pressed("gearUL") or event.is_action_pressed("gearR") or event.is_action_pressed("gearL") or event.is_action_pressed("gearDR") or event.is_action_pressed("gearDL") or event.is_action_pressed("gearM")) and !clutch:
+	if (event.is_action_pressed("gearU") or event.is_action_pressed("gearD") or event.is_action_pressed("gearUR") or event.is_action_pressed("gearUL") or event.is_action_pressed("gearR") or event.is_action_pressed("gearL") or event.is_action_pressed("gearDR") or event.is_action_pressed("gearDL") or event.is_action_pressed("gearM")) and (!clutch or gear_cracked):
 		
 		return
 
@@ -59,6 +61,7 @@ func _input(event):
 			gear = 2
 		else:
 			gearbox_crack()
+			
 	if event.is_action_pressed("gearD"):
 		if gearstate == 5:
 			gearstate = 2
@@ -136,6 +139,10 @@ func _input(event):
 	
 	
 func gearbox_crack():
+	gear_cracked = false
+	get_node("gear_crack_timer").start()
+	get_node("gear_sound").stream = gearbox_crack_sound
+	get_node("gear_sound").play()
 	pass
 	
 func crack():
@@ -227,7 +234,7 @@ func anim_gearstate(state):
 		stickstate = Vector2(1,-1)
 		
 	if gearstate == 8:
-		get_node("gear_sound").stream = gear_sound1
+		get_node("gear_sound").stream = gear_sound2
 		get_node("gear_sound").play()
 #		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(0,1))
 		stickstate = Vector2(0,1)
@@ -237,7 +244,7 @@ func anim_gearstate(state):
 		stickstate =  Vector2(0,0)
 	
 	if gearstate == 2:
-		get_node("gear_sound").stream = gear_sound1
+		get_node("gear_sound").stream = gear_sound2
 		get_node("gear_sound").play()
 #		get_node("vasya").get_node("AnimationTree").set("parameters/blend_position",  Vector2(0,-1))
 		stickstate = Vector2(0,-1)
@@ -247,3 +254,8 @@ func load_curves():
 		i += 1
 		range_curves.append(load("res://curves/" + str(i) + ".tres"))
 	
+
+
+func _on_gear_crack_timer_timeout():
+	gear_cracked = false
+	get_node("gear_crack_timer").stop()
