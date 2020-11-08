@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/закур4.wav-e072da1b471edc50a9d7ea7cb7bc7c23.sample"
+
+[deps]
+
+source_file="res://music/закур4.wav"
+dest_files=[ "res://.import/закур4.wav-e072da1b471edc50a9d7ea7cb7bc7c23.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://models/Vasja/2/egor_smotrit.dae" type="PackedScene" id=1]
 [ext_resource path="res://models/anims/smoking/stryahivating.tres" type="Animation" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://models/Vasja/2/Material.material" type="Material" id=5]
 [ext_resource path="res://models/test/egor.gd" type="Script" id=6]
 [ext_resource path="res://Camera.gd" type="Script" id=7]
+[ext_resource path="res://sound/puff3.wav" type="AudioStream" id=8]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cube.003"
@@ -41,44 +42,44 @@ surfaces/1 = {
 flags_transparent = true
 albedo_color = Color( 1, 1, 1, 0 )
 
-[sub_resource type="AnimationNodeTimeSeek" id=10]
+[sub_resource type="AnimationNodeTimeSeek" id=3]
 
-[sub_resource type="AnimationNodeTimeSeek" id=11]
+[sub_resource type="AnimationNodeTimeSeek" id=4]
 
-[sub_resource type="AnimationNodeTimeScale" id=9]
-
-[sub_resource type="AnimationNodeBlend2" id=3]
-
-[sub_resource type="AnimationNodeAnimation" id=4]
-animation = "sitting"
-
-[sub_resource type="AnimationNodeAnimation" id=5]
-animation = "smoking"
+[sub_resource type="AnimationNodeTimeScale" id=5]
 
 [sub_resource type="AnimationNodeBlend2" id=6]
 
 [sub_resource type="AnimationNodeAnimation" id=7]
+animation = "sitting"
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "smoking"
+
+[sub_resource type="AnimationNodeBlend2" id=9]
+
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "stryahivating"
 
-[sub_resource type="AnimationNodeBlendTree" id=8]
+[sub_resource type="AnimationNodeBlendTree" id=11]
 graph_offset = Vector2( -739.44, 207 )
-nodes/SeekSmoke/node = SubResource( 10 )
+nodes/SeekSmoke/node = SubResource( 3 )
 nodes/SeekSmoke/position = Vector2( -460, 240 )
-nodes/SeekStryah/node = SubResource( 11 )
+nodes/SeekStryah/node = SubResource( 4 )
 nodes/SeekStryah/position = Vector2( -460, 380 )
-nodes/TimeScale/node = SubResource( 9 )
+nodes/TimeScale/node = SubResource( 5 )
 nodes/TimeScale/position = Vector2( -60, 300 )
-nodes/final_mix/node = SubResource( 3 )
+nodes/final_mix/node = SubResource( 6 )
 nodes/final_mix/position = Vector2( 120, 260 )
-nodes/sitting/node = SubResource( 4 )
+nodes/sitting/node = SubResource( 7 )
 nodes/sitting/position = Vector2( -300, 80 )
-nodes/smoking/node = SubResource( 5 )
+nodes/smoking/node = SubResource( 8 )
 nodes/smoking/position = Vector2( -660, 240 )
-nodes/smoking_mix/node = SubResource( 6 )
+nodes/smoking_mix/node = SubResource( 9 )
 nodes/smoking_mix/position = Vector2( -260, 260 )
-nodes/stryah/node = SubResource( 7 )
+nodes/stryah/node = SubResource( 10 )
 nodes/stryah/position = Vector2( -660, 400 )
-node_connections = [ "output", 0, "final_mix", "final_mix", 0, "sitting", "final_mix", 1, "TimeScale", "smoking_mix", 0, "SeekSmoke", "smoking_mix", 1, "SeekStryah", "TimeScale", 0, "smoking_mix", "SeekStryah", 0, "stryah", "SeekSmoke", 0, "smoking" ]
+node_connections = [ "output", 0, "final_mix", "final_mix", 0, "sitting", "final_mix", 1, "TimeScale", "TimeScale", 0, "smoking_mix", "smoking_mix", 0, "SeekSmoke", "smoking_mix", 1, "SeekStryah", "SeekStryah", 0, "stryah", "SeekSmoke", 0, "smoking" ]
 
 [sub_resource type="CubeMesh" id=12]
 size = Vector3( 0.01, 0.01, 0.1 )
@@ -110,7 +111,7 @@ anims/smoking = ExtResource( 4 )
 anims/stryahivating = ExtResource( 2 )
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="2"]
-tree_root = SubResource( 8 )
+tree_root = SubResource( 11 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/SeekSmoke/seek_position = -1.0
@@ -129,7 +130,7 @@ script = ExtResource( 7 )
 one_shot = true
 
 [node name="MeshInstance" type="MeshInstance" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 0.997471, 0.0710622, 0, -0.0710622, 0.997471, 0.135832, 0.648907, -0.221008 )
+transform = Transform( 1, 0, 0, 0, 0.997471, 0.0710621, 0, -0.0710621, 0.997471, 0.135832, 0.648907, -0.221008 )
 mesh = SubResource( 12 )
 material/0 = null
 
@@ -143,4 +144,7 @@ direction = Vector3( 0, 1, 0 )
 spread = 5.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 0.4
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="6"]
+stream = ExtResource( 8 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

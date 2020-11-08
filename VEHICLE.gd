@@ -121,6 +121,7 @@ func _input(event):
 	if event.is_action_pressed("starter"):
 		if gear == -1 or clutch:
 			working = !working
+			get_node("AudioStreamPlayer").play()
 	if event.is_action_pressed("clutch") or event.is_action_released("clutch"):
 		clutch = !clutch
 	

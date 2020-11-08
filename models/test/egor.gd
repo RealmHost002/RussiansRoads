@@ -16,7 +16,8 @@ var gui_node
 var pora_pokurit
 var siga_progress_value
 var count_of_puff = 0
-
+var sound_shake_off = preload("res://sound/shake_off.wav")
+var sound_puff = preload("res://sound/puff3.wav")
 func _ready():
 	gui_node = get_tree().get_root().get_node("Spatial/Gui")
 	siga_progress_value = get_tree().get_root().get_node("Spatial/Gui").get_node("TextureProgress")
@@ -41,15 +42,19 @@ func _input(event):
 #			anim_node['parameters/final_mix/blend_amount'] = 0.0
 			state = 'camera_on_road'
 
-	if event.is_action_pressed("interact"):
+	if event.is_action_pressed("interact") and state == "camera_behind":
 		if on_window:
 #			return
+			get_node("AudioStreamPlayer").stream = sound_shake_off
+			get_node("AudioStreamPlayer").play()
 			count_of_puff = 0
 			anim_node['parameters/TimeScale/scale'] = 1
 			anim_node['parameters/smoking_mix/blend_amount'] = 1.0
 			timer.wait_time = 2.2
 			timer.start()
 		else:
+			get_node("AudioStreamPlayer").stream = sound_puff
+			get_node("AudioStreamPlayer").play()
 			count_of_puff += 1
 			if count_of_puff == 3:
 				gui_node.get_node("TextureProgress/Label").text = "You need to shake off the ash!"

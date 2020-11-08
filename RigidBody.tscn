@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://VEHICLE.gd" type="Script" id=1]
 [ext_resource path="res://models/semer_ochka.tres" type="ArrayMesh" id=2]
@@ -12,29 +12,30 @@
 [ext_resource path="res://models/materials/glass_mat.tres" type="Material" id=10]
 [ext_resource path="res://models/test/vasya_anim_7.tscn" type="PackedScene" id=11]
 [ext_resource path="res://models/test/egor_smotrit.tscn" type="PackedScene" id=12]
+[ext_resource path="res://sound/starting_engine.ogg" type="AudioStream" id=13]
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.806452, 1 )
 colors = PoolColorArray( 0, 0.015625, 1, 1, 1, 0.915741, 0.0195313, 1, 0.917969, 0.0932312, 0.0932312, 1 )
 
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 5 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 width = 70
 
-[sub_resource type="CapsuleShape" id=1]
+[sub_resource type="CapsuleShape" id=3]
 radius = 0.792202
 height = 2.83293
 
-[sub_resource type="SphereMesh" id=2]
+[sub_resource type="SphereMesh" id=4]
 radius = 0.3
 height = 0.6
 
-[sub_resource type="CylinderMesh" id=3]
+[sub_resource type="CylinderMesh" id=5]
 top_radius = 0.3
 bottom_radius = 0.3
 height = 0.235
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.0946444, 0.218461, 0.219492 )
 
 [node name="RigidBody" type="VehicleBody"]
@@ -68,11 +69,11 @@ editor_only = true
 
 [node name="Sprite3D" type="Sprite3D" parent="semer_ochka"]
 transform = Transform( 1, -2.08093e-07, 7.51028e-08, 2.08093e-07, 0.769511, -0.638634, 7.51028e-08, 0.638634, 0.769511, -0.13621, 1.51608, -0.55771 )
-texture = SubResource( 6 )
+texture = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.961394, 0.0619603 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="Position3D" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
@@ -90,7 +91,7 @@ damping_compression = 0.3
 damping_relaxation = 0.5
 
 [node name="MeshInstance4" type="MeshInstance" parent="VehicleWheel"]
-mesh = SubResource( 2 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="VehicleWheel2" type="VehicleWheel" parent="."]
@@ -105,7 +106,7 @@ damping_compression = 0.8
 damping_relaxation = 0.8
 
 [node name="MeshInstance3" type="MeshInstance" parent="VehicleWheel2"]
-mesh = SubResource( 2 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="VehicleWheelF" type="VehicleWheel" parent="."]
@@ -121,7 +122,7 @@ damping_relaxation = 0.8
 
 [node name="MeshInstance2" type="MeshInstance" parent="VehicleWheelF"]
 transform = Transform( 0.000101701, 0.999971, 0.00760888, -0.99991, -1.62906e-07, 0.0133863, 0.0133859, -0.00760956, 0.999881, 0, 0, 0 )
-mesh = SubResource( 3 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="VehicleWheelF2" type="VehicleWheel" parent="."]
@@ -137,7 +138,7 @@ damping_relaxation = 0.8
 
 [node name="MeshInstance3" type="MeshInstance" parent="VehicleWheelF2"]
 transform = Transform( 0.000101701, 0.999971, 0.00760888, -0.99991, -1.62906e-07, 0.0133863, 0.0133859, -0.00760956, 0.999881, 0, 0, 0 )
-mesh = SubResource( 3 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="vasya5" parent="." instance=ExtResource( 9 )]
@@ -165,6 +166,9 @@ collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="egor_smotrit/StaticBody"]
 transform = Transform( 0.952055, -0.305928, -1.56226e-08, 0.305928, 0.952055, 9.96839e-08, -1.56226e-08, -9.96839e-08, 1, 0.283125, 1.09952, 0.113651 )
-shape = SubResource( 4 )
+shape = SubResource( 6 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
 [connection signal="mouse_entered" from="egor_smotrit/StaticBody" to="egor_smotrit" method="_on_window_mouse_entered"]
 [connection signal="mouse_exited" from="egor_smotrit/StaticBody" to="egor_smotrit" method="_on_window_mouse_exited"]

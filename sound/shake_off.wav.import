@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shake_off.wav-27a962da2fa21bfef6ca5da8f5622b39.sample"
+
+[deps]
+
+source_file="res://sound/shake_off.wav"
+dest_files=[ "res://.import/shake_off.wav-27a962da2fa21bfef6ca5da8f5622b39.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
