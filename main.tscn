@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://textures/old_grass.jpg" type="Texture" id=1]
 [ext_resource path="res://textures/grass-texture-35.jpg" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://world_redactor/buttons/birch.gd" type="Script" id=13]
 [ext_resource path="res://world_redactor/buttons/birch_choosen.png" type="Texture" id=14]
 [ext_resource path="res://world_redactor/buttons/birch.png" type="Texture" id=15]
+[ext_resource path="res://world_redactor/buttons/fence.gd" type="Script" id=16]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 20, 20 )
@@ -141,64 +142,9 @@ shader_param/texture_height = ExtResource( 3 )
 
 [sub_resource type="Curve3D" id=6]
 _data = {
-"points": PoolVector3Array( -16.1719, -0.0376205, -13.2834, 16.1719, 0.0376205, 13.2834, 18.1419, 0, -30.0927, 16.7681, -1.23511, -21.4061, -16.7681, 1.23511, 21.4061, 1.56863, -1.55925, 104.878, 24.6357, 2.12824, 8.54834, -24.6357, -2.12824, -8.54834, -109.021, -2.49357, 196.967, -1.86916, 0.380775, 21.1778, 1.86916, -0.380775, -21.1778, -75.9838, 4.04332, 6.41175, -1.66563, 0.700692, 17.7138, 1.66563, -0.700692, -17.7138, -73.8948, 8.81899, -52.0351, -16.0141, 0, 7.7644, 16.0141, 0, -7.7644, -31.9313, 0, -95.3734, -7.76092, 0, -25.7775, 7.76092, 0, 25.7775, 16.7579, 0, -89.0648, 7.12388, 4.91191, -15.3078, -7.12388, -4.91191, 15.3078, -12.2004, -0.380112, -60.0875, -9.8735, -1.71226, 3.05666, 9.8735, 1.71226, -3.05666, -3.54299, 0, -38.6713, 0, 0, 0, 13.8636, 0, 10.0919, 18.1419, 0, -30.0927 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+"points": PoolVector3Array( 0.94342, -1.23511, -28.1139, -0.94342, 1.23511, 28.1139, 17.4289, -1.55925, 62.1933, 24.6357, 2.12824, 8.54834, -24.6357, -2.12824, -8.54834, -109.021, -2.49357, 196.967, -1.86916, 0.380775, 21.1778, 1.86916, -0.380775, -21.1778, -75.9838, 4.04332, 6.41175, -1.66563, 0.700692, 17.7138, 1.66563, -0.700692, -17.7138, -73.8948, 8.81899, -52.0351, -16.0141, 0, 7.7644, 16.0141, 0, -7.7644, -31.9313, 0, -95.3734, -7.76092, 0, -25.7775, 7.76092, 0, 25.7775, 8.46166, -2.67396, -96.1266, 7.30844, 4.91191, -16.1666, -7.30844, -4.91191, 16.1666, -12.2004, -0.380112, -60.0875, -17.0538, 1.74376, 8.45722, 17.0538, -1.74376, -8.45722, -4.79166, 0, -28.581, 0, 0, 0, 13.8636, 0, 10.0919, 38.1262, 0, -6.74989 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 }
-
-[sub_resource type="Shader" id=7]
-code = "shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
-uniform vec4 albedo : hint_color;
-uniform sampler2D texture_albedo : hint_albedo;
-uniform float specular;
-uniform float metallic;
-uniform float roughness : hint_range(0,1);
-uniform float point_size : hint_range(0,128);
-uniform sampler2D texture_normal : hint_normal;
-uniform float normal_scale : hint_range(-16,16);
-uniform vec3 uv1_scale;
-uniform vec3 uv1_offset;
-uniform vec3 uv2_scale;
-uniform vec3 uv2_offset;
-
-
-void vertex() {
-	UV=UV*uv1_scale.xy+uv1_offset.xy;
-//	UV = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xz * vec2(0.1);
-//	COLOR.r = (UV.y - 0.5) * 2.0;
-}
-
-
-
-
-void fragment() {
-	vec2 base_uv = UV;
-	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
-//	ALBEDO = COLOR.rgb;
-	METALLIC = metallic;
-	ROUGHNESS = roughness;
-	SPECULAR = specular;
-	NORMALMAP = texture(texture_normal,base_uv).rgb;
-	NORMALMAP_DEPTH = normal_scale;
-}
-"
-
-[sub_resource type="ShaderMaterial" id=8]
-shader = SubResource( 7 )
-shader_param/albedo = Color( 1, 1, 1, 1 )
-shader_param/specular = 0.5
-shader_param/metallic = 0.13
-shader_param/roughness = 1.0
-shader_param/point_size = 1.0
-shader_param/normal_scale = 0.49
-shader_param/uv1_scale = Vector3( 1, 1, 1 )
-shader_param/uv1_offset = Vector3( 0, 0, 0 )
-shader_param/uv2_scale = Vector3( 1, 1, 1 )
-shader_param/uv2_offset = Vector3( 0, 0, 0 )
-shader_param/texture_albedo = ExtResource( 6 )
-shader_param/texture_normal = ExtResource( 5 )
 
 [sub_resource type="Shader" id=9]
 code = "shader_type spatial;
@@ -246,6 +192,69 @@ shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
 shader_param/texture_albedo = ExtResource( 8 )
 
+[sub_resource type="PlaneMesh" id=16]
+material = SubResource( 10 )
+size = Vector2( 200, 200 )
+
+[sub_resource type="Shader" id=7]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : hint_color;
+
+uniform sampler2D texture_albedo : hint_albedo;
+uniform sampler2D texture_albedo2 : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform sampler2D texture_normal : hint_normal;
+uniform float normal_scale : hint_range(-16,16);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+//	UV = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xz * vec2(0.1);
+//	COLOR.r = (UV.y - 0.5) * 2.0;
+//	COLOR.r = VERTEX.x;
+}
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+//	ALBEDO = albedo.rgb * UV.y;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+	NORMALMAP = texture(texture_normal,base_uv).rgb;
+	NORMALMAP_DEPTH = normal_scale;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.13
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/normal_scale = 0.49
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+shader_param/texture_albedo = ExtResource( 6 )
+shader_param/texture_albedo2 = ExtResource( 8 )
+shader_param/texture_normal = ExtResource( 5 )
+
 [sub_resource type="PlaneMesh" id=11]
 size = Vector2( 100, 100 )
 
@@ -273,7 +282,7 @@ transform = Transform( -0.530422, -0.701343, 0.476203, 0, 0.561737, 0.827316, -0
 shadow_enabled = true
 
 [node name="RigidBody" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.766459, -0.0732695, 0.6381, -0.0588012, 0.997305, 0.0438854, -0.639596, -0.00388473, -0.768701, 5.29579, 5.83647, -29.0924 )
+transform = Transform( -0.766459, -0.0732695, 0.6381, -0.0588012, 0.997305, 0.0438854, -0.639596, -0.00388473, -0.768701, -8.41894, 5.83647, -20.0727 )
 
 [node name="Position3D2" type="Position3D" parent="RigidBody"]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.50796, -2.34321 )
@@ -281,58 +290,37 @@ transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.50
 [node name="Path" type="Path" parent="."]
 curve = SubResource( 6 )
 
-[node name="CSGPolygon" type="CSGPolygon" parent="Path"]
+[node name="MeshInstance3" type="MeshInstance" parent="Path"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107906, 0 )
+visible = false
+mesh = SubResource( 16 )
+material/0 = null
+
+[node name="new_road" type="CSGPolygon" parent="Path"]
 use_collision = true
 invert_faces = true
-polygon = PoolVector2Array( -1, -1, -1, 1, 2, 1, 2, -1 )
+polygon = PoolVector2Array( 2, -1, 2, 1, -2, 1, -2, -1 )
 mode = 2
 path_node = NodePath("..")
 path_interval = 3.0
 path_rotation = 2
 path_local = false
 path_continuous_u = false
-path_joined = true
+path_joined = false
 material = SubResource( 8 )
 
-[node name="Right_corner" type="CSGPolygon" parent="Path"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.054, 0, -0.003 )
+[node name="new_road_ground" type="CSGPolygon" parent="Path"]
 use_collision = true
 invert_faces = true
-polygon = PoolVector2Array( 2, -1, 2, 1, 5, 2, 5, -1 )
+polygon = PoolVector2Array( 2, 0.99, -2, 0.99, -6, 2, -12, 1, -20, -6, 20, -6, 12, 1, 6, 2 )
 mode = 2
 path_node = NodePath("..")
 path_interval = 3.0
 path_rotation = 2
 path_local = false
 path_continuous_u = false
-path_joined = true
-material = SubResource( 10 )
-
-[node name="Right_corner2" type="CSGPolygon" parent="Path"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.054, 0, -0.003 )
-use_collision = true
-invert_faces = true
-polygon = PoolVector2Array( 5, -1, 5, 2, 20, 3, 20, -1 )
-mode = 2
-path_node = NodePath("..")
-path_interval = 3.0
-path_rotation = 2
-path_local = false
-path_continuous_u = false
-path_joined = true
-material = SubResource( 10 )
-
-[node name="Left_corbner" type="CSGPolygon" parent="Path"]
-use_collision = true
-invert_faces = true
-polygon = PoolVector2Array( -1, -1, -1, 1, -4, 2, -4, -1 )
-mode = 2
-path_node = NodePath("..")
-path_interval = 3.0
-path_rotation = 2
-path_local = false
-path_continuous_u = false
-path_joined = true
+path_joined = false
+smooth_faces = true
 material = SubResource( 10 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
@@ -350,6 +338,7 @@ volume_db = 2.0
 script = ExtResource( 9 )
 
 [node name="Gui" parent="." instance=ExtResource( 10 )]
+visible = false
 
 [node name="Position3D" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.9038, -8.19152 )
@@ -362,7 +351,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 
 [node name="Camera" type="Camera" parent="Position3D"]
 transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 5.73577, 8.19152 )
-current = true
 far = 500.0
 script = ExtResource( 11 )
 
@@ -398,7 +386,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Position3D/Control/ScrollContainer"]
 margin_right = 64.0
-margin_bottom = 64.0
+margin_bottom = 132.0
 
 [node name="TextureButton" type="TextureButton" parent="Position3D/Control/ScrollContainer/VBoxContainer"]
 margin_right = 64.0
@@ -408,6 +396,18 @@ texture_normal = ExtResource( 15 )
 texture_pressed = ExtResource( 14 )
 script = ExtResource( 13 )
 
+[node name="TextureButton2" type="TextureButton" parent="Position3D/Control/ScrollContainer/VBoxContainer"]
+margin_top = 68.0
+margin_right = 64.0
+margin_bottom = 132.0
+toggle_mode = true
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 14 )
+script = ExtResource( 16 )
+
 [node name="up" type="Position3D" parent="Position3D"]
 transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 0.819152, -0.573578 )
+
+[node name="curve_show_node" type="Spatial" parent="."]
 [connection signal="button_down" from="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton" to="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton" method="_on_TextureButton_button_down"]
+[connection signal="button_down" from="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton2" to="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton2" method="_on_TextureButton_button_down"]

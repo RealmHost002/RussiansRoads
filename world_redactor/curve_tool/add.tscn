@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_no_depth_test = true
+albedo_color = Color( 0.490196, 0.486275, 0.909804, 1 )
+
+[node name="Spatial" type="MeshInstance"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )

@@ -18,6 +18,7 @@ func _ready():
 #	if !self.current:
 #		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 #		return
+	show_curve(get_node("../../Path").curve)
 	pass # Replace with function body.
 	
 
@@ -116,7 +117,35 @@ func _input(event):
 func _process(delta):
 	if !self.current:
 		return
-		
+#	get_node("../../Path").curve.set_point_position(4, Vector3(0,0,0))
 	get_node("../axises").global_transform.basis = Basis.IDENTITY
 	self.global_transform.origin -= move.rotated(Vector3(0,1,0), self.rotation.y) * delta * 25
 	self.rotate_y(rotation_ * delta)
+
+
+
+func show_curve(curve):
+	for i in range(curve.get_point_count()):
+		var pos = curve.get_point_position(i)
+		var dot = load("res://world_redactor/curve_tool/pos.tscn").instance()
+		get_node("../../curve_show_node").add_child(dot)
+		dot.global_transform.origin = pos
+		
+		var in_pos = curve.get_point_in(i)
+		dot = load("res://world_redactor/curve_tool/in.tscn").instance()
+		get_node("../../curve_show_node").add_child(dot)
+		dot.global_transform.origin = pos + in_pos
+		
+		var out_pos = curve.get_point_out(i)
+		dot = load("res://world_redactor/curve_tool/out.tscn").instance()
+		get_node("../../curve_show_node").add_child(dot)
+		dot.global_transform.origin = pos + out_pos
+		
+		i -= 1
+		if i >= 0:
+			pos = (curve.get_point_position(i) + curve.get_point_position(i+1))/2
+#			var next_pos = curve.get_point_position(i+1)
+			dot = load("res://world_redactor/curve_tool/add.tscn").instance()
+			get_node("../../curve_show_node").add_child(dot)
+			dot.global_transform.origin = pos
+
