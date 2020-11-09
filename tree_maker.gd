@@ -8,6 +8,10 @@ var trees = []
 var move = Vector3(0,0,0)
 var rotation_ = 0
 
+
+var choosen_object
+var obj_mode = 'nothing'
+
 var move_or_rot = 'rot'
 var move_mode = false
 
@@ -52,13 +56,16 @@ func _input(event):
 		var to = from + self.project_ray_normal(event.position) * 150
 		var space_state = get_world().direct_space_state
 		var result = space_state.intersect_ray(from, to)
-		print(result)
 		if result:
-			var obj_node = load(path_to_node).instance()
-			get_parent().get_parent().get_node("trees").add_child(obj_node)
-			obj_node.global_transform.origin = result['position']
-			obj_node.add_to_group('obstacles')
-			obj_node.link = path_to_node
+			if result['collider'] in get_tree().get_nodes_in_group('obstacles'):
+				choosen_object = result['collider']
+			else:
+				var obj_node = load(path_to_node).instance()
+				get_parent().get_parent().get_node("trees").add_child(obj_node)
+				obj_node.global_transform.origin = result['position']
+				obj_node.add_to_group('obstacles')
+				obj_node.link = path_to_node
+				choosen_object = obj_node
 #			trees.append(tree_node)
 #			tree_poses.append(result['position'])
 
@@ -77,8 +84,36 @@ func _input(event):
 		self.transform.origin *= 1.1
 		
 		
+	if choosen_object:
+		if event.is_action_pressed("ui_down"):
+			obj_mode = 'scale'
+		if event.is_action_released("ui_down"):
+			obj_mode = 'nothing'
+		if event.is_action_pressed("starter"):
+			obj_mode = 'rot'
+		if event.is_action_released("starter"):
+			obj_mode = 'nothing'
+		if event.is_action_pressed("edit_move_mode"):
+			obj_mode = 'move'
+		if event.is_action_released("edit_move_mode"):
+			obj_mode = 'nothing'
 		
 		
+		
+		
+		if event is InputEventMouseMotion:
+			if obj_mode == 'rot':
+				choosen_object.rotate_y(event.relative.x / 55.0)
+			if obj_mode == 'scale':
+				choosen_object.scale += Vector3(1,1,1) * event.relative.x / 55.0
+			if obj_mode == 'move':
+				var right = get_node("../right").global_transform.origin - get_parent().global_transform.origin
+				var up = get_node("../up").global_transform.origin - get_parent().global_transform.origin
+				choosen_object.global_transform.origin -= (up * event.relative.y - right * event.relative.x) * self.transform.origin.length() / 550.0
+
+
+
+
 #	if event.is_action_pressed("ui_left"):
 #		move.x += 1 
 #	if event.is_action_pressed("ui_right"):
@@ -104,7 +139,7 @@ func _input(event):
 		for child in get_node("../../trees").get_children():
 			var t = child.global_transform.origin
 			var type = 0
-			var p = {'x' : t.x, 'y' : t.y,  'z' : t.z, "r" : child.rotation.y, 'link' : child.link}
+			var p = {'x' : t.x, 'y' : t.y,  'z' : t.z, "r" : child.rotation.y, 'link' : child.link, 's' : child.scale.x}
 			
 			arr_to_save.append(p)
 			
@@ -125,6 +160,7 @@ func _process(delta):
 
 
 func show_curve(curve):
+	return
 	for i in range(curve.get_point_count()):
 		var pos = curve.get_point_position(i)
 		var dot = load("res://world_redactor/curve_tool/pos.tscn").instance()

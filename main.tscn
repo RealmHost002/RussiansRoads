@@ -1,8 +1,8 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=31 format=2]
 
-[ext_resource path="res://textures/old_grass.jpg" type="Texture" id=1]
-[ext_resource path="res://textures/grass-texture-35.jpg" type="Texture" id=2]
-[ext_resource path="res://noise.tres" type="Texture" id=3]
+[ext_resource path="res://world_redactor/buttons/stone.gd" type="Script" id=1]
+[ext_resource path="res://world_redactor/buttons/stone.png" type="Texture" id=2]
+[ext_resource path="res://world_redactor/buttons/stone_choosen.png" type="Texture" id=3]
 [ext_resource path="res://RigidBody.tscn" type="PackedScene" id=4]
 [ext_resource path="res://textures/NormalMap.png" type="Texture" id=5]
 [ext_resource path="res://textures/road_2.jpg" type="Texture" id=6]
@@ -16,129 +16,9 @@
 [ext_resource path="res://world_redactor/buttons/birch_choosen.png" type="Texture" id=14]
 [ext_resource path="res://world_redactor/buttons/birch.png" type="Texture" id=15]
 [ext_resource path="res://world_redactor/buttons/fence.gd" type="Script" id=16]
-
-[sub_resource type="PlaneMesh" id=1]
-size = Vector2( 20, 20 )
-subdivide_width = 20
-subdivide_depth = 20
-
-[sub_resource type="Shader" id=2]
-code = "shader_type spatial;
-render_mode blend_mix,cull_back,diffuse_burley,specular_schlick_ggx;
-uniform vec4 albedo : hint_color;
-uniform sampler2D texture_albedo : hint_albedo;
-uniform sampler2D texture_albedo2 : hint_albedo;
-uniform sampler2D noise_mix;
-uniform sampler2D texture_height;
-uniform float specular;
-uniform float metallic;
-uniform float roughness : hint_range(0,1);
-uniform vec2 depth_flip;
-uniform vec3 uv1_scale;
-uniform vec3 uv1_offset;
-uniform vec3 uv2_scale;
-uniform vec3 uv2_offset;
-uniform float height_mdfy;
-uniform float eps;
-uniform float texelMaxHeight;
-varying vec3 vex;
-
-float rand(vec2 co){
-	return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
-}
-
-vec3 getNormal(vec2 uv) {
-  
-  float u = texture(texture_height, uv + vec2(0.0, -eps)).r * texelMaxHeight;
-  float r = texture(texture_height, uv + vec2(eps, 0.0)).r * texelMaxHeight;
-  float l = texture(texture_height, uv + vec2(-eps, 0.0)).r * texelMaxHeight;
-  float d = texture(texture_height, uv + vec2(0.0, eps)).r * texelMaxHeight;
-  
-  vec3 n;
-  n.z = u - d;
-  n.x = l - r;
-  n.y = 2.0;
-  return normalize(n);
-}
-
-
-void vertex() {
-	UV=UV*uv1_scale.xy+uv1_offset.xy;
-	
-//	float some = float(int(TIME * 102.4)) / 102.4;
-//	UV.y -= TIME / 5.0;
-	if (1.0 == 1.0){
-	float b = VERTEX.z / 20.0 / 57.17 * 0.0;
-//	VERTEX.z *= 1.0 - (VERTEX.x + 10.0) / 20.0;
-	VERTEX.xz *= mat2(vec2(cos(b), -sin(b)), vec2(sin(b), cos(b)));
-	}
-	VERTEX.y += texture(texture_height,UV).r * height_mdfy * (UV.x - 0.5) * (UV.x - 0.5) * 5.0;
-//	VERTEX.z *= 1.0 + (VERTEX.x + 10.0) / 20.0;
-	NORMAL = getNormal(UV);
-	vex = VERTEX;
-}
-
-
-
-
-void fragment() {
-	vec2 base_uv = UV * 1.0;
-//	base_uv.y -= TIME / 5.0;
-	vec2 noise_uv = UV;
-//	noise_uv.y -= TIME/ 5.0;
-//	vec4 flow_tex = texture(texture_normal,base_uv);
-//	base_uv += flow_tex.rg * (sin(1.0) / 2.0 + 1.0);
-
-//	vec4 heigh_tex = texture(texture_height,UV);
-
-	float a = rand(ceil(base_uv * 20.0));
-//	base_uv *= mat2(vec2(cos(a), -sin(a)), vec2(sin(a), cos(a)));
-	vec4 noise_tex = texture(noise_mix, noise_uv);
-//	float a = 0.0;
-	vec4 albedo_tex = texture(texture_albedo,base_uv * 20.0 * mat2(vec2(cos(a), -sin(a)), vec2(sin(a), cos(a))));
-//	vec4 albedo_tex = texture(texture_albedo,base_uv * 6.0);
-	vec4 albedo_tex2 = texture(texture_albedo2,base_uv * 20.0 * mat2(vec2(cos(a), -sin(a)), vec2(sin(a), cos(a))));
-//	albedo_tex.gb -= noise_tex.gb / 3.0;
-
-//	vec4 mix_tex = albedo_tex * noise_tex.r / 1.0 + albedo_tex2 * (1.0 - noise_tex.r) / 1.0;
-//	vec4 mix_tex = mix(albedo_tex2, albedo_tex, noise_tex.r);
-	vec4 mix_tex = mix(albedo_tex2, albedo_tex, (1.0 - clamp(vex.y / 1.0, 0.0, 1.0)) * noise_tex.r);
-	ALBEDO = albedo.rgb * mix_tex.rgb;
-	METALLIC = metallic;
-	ROUGHNESS = roughness;
-	SPECULAR = specular;
-
-}
-"
-
-[sub_resource type="OpenSimplexNoise" id=3]
-octaves = 5
-persistence = 1.0
-
-[sub_resource type="NoiseTexture" id=4]
-width = 1024
-height = 1024
-seamless = true
-noise = SubResource( 3 )
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 2 )
-shader_param/albedo = Color( 1, 1, 1, 1 )
-shader_param/specular = 0.0
-shader_param/metallic = 0.207
-shader_param/roughness = 1.0
-shader_param/depth_flip = Vector2( 1, 1 )
-shader_param/uv1_scale = Vector3( 1, 1, 1 )
-shader_param/uv1_offset = Vector3( 0, 0, 0 )
-shader_param/uv2_scale = Vector3( 1, 1, 1 )
-shader_param/uv2_offset = Vector3( 0, 0, 0 )
-shader_param/height_mdfy = 3.0
-shader_param/eps = 0.01
-shader_param/texelMaxHeight = 11.472
-shader_param/texture_albedo = ExtResource( 2 )
-shader_param/texture_albedo2 = ExtResource( 1 )
-shader_param/noise_mix = SubResource( 4 )
-shader_param/texture_height = ExtResource( 3 )
+[ext_resource path="res://world_redactor/buttons/house.gd" type="Script" id=17]
+[ext_resource path="res://world_redactor/buttons/house_choosen.png" type="Texture" id=18]
+[ext_resource path="res://world_redactor/buttons/house.png" type="Texture" id=19]
 
 [sub_resource type="Curve3D" id=6]
 _data = {
@@ -272,14 +152,8 @@ albedo_color = Color( 1, 0, 0, 1 )
 
 [node name="Spatial" type="Spatial"]
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 139.415 )
-mesh = SubResource( 1 )
-material/0 = SubResource( 5 )
-
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( -0.530422, -0.701343, 0.476203, 0, 0.561737, 0.827316, -0.847733, 0.438827, -0.297958, 0, 12.4093, 0 )
-shadow_enabled = true
 
 [node name="RigidBody" parent="." instance=ExtResource( 4 )]
 transform = Transform( -0.766459, -0.0732695, 0.6381, -0.0588012, 0.997305, 0.0438854, -0.639596, -0.00388473, -0.768701, -8.41894, 5.83647, -20.0727 )
@@ -291,8 +165,7 @@ transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.50
 curve = SubResource( 6 )
 
 [node name="MeshInstance3" type="MeshInstance" parent="Path"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107906, 0 )
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.9532, -1.95854, -20.2754 )
 mesh = SubResource( 16 )
 material/0 = null
 
@@ -338,7 +211,6 @@ volume_db = 2.0
 script = ExtResource( 9 )
 
 [node name="Gui" parent="." instance=ExtResource( 10 )]
-visible = false
 
 [node name="Position3D" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.9038, -8.19152 )
@@ -386,7 +258,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Position3D/Control/ScrollContainer"]
 margin_right = 64.0
-margin_bottom = 132.0
+margin_bottom = 268.0
 
 [node name="TextureButton" type="TextureButton" parent="Position3D/Control/ScrollContainer/VBoxContainer"]
 margin_right = 64.0
@@ -396,10 +268,28 @@ texture_normal = ExtResource( 15 )
 texture_pressed = ExtResource( 14 )
 script = ExtResource( 13 )
 
-[node name="TextureButton2" type="TextureButton" parent="Position3D/Control/ScrollContainer/VBoxContainer"]
+[node name="TextureButton3" type="TextureButton" parent="Position3D/Control/ScrollContainer/VBoxContainer"]
 margin_top = 68.0
 margin_right = 64.0
 margin_bottom = 132.0
+toggle_mode = true
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+script = ExtResource( 1 )
+
+[node name="TextureButton4" type="TextureButton" parent="Position3D/Control/ScrollContainer/VBoxContainer"]
+margin_top = 136.0
+margin_right = 64.0
+margin_bottom = 200.0
+toggle_mode = true
+texture_normal = ExtResource( 19 )
+texture_pressed = ExtResource( 18 )
+script = ExtResource( 17 )
+
+[node name="TextureButton2" type="TextureButton" parent="Position3D/Control/ScrollContainer/VBoxContainer"]
+margin_top = 204.0
+margin_right = 64.0
+margin_bottom = 268.0
 toggle_mode = true
 texture_normal = ExtResource( 15 )
 texture_pressed = ExtResource( 14 )
@@ -410,4 +300,6 @@ transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0
 
 [node name="curve_show_node" type="Spatial" parent="."]
 [connection signal="button_down" from="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton" to="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton" method="_on_TextureButton_button_down"]
+[connection signal="button_down" from="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton3" to="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton3" method="_on_TextureButton_button_down"]
+[connection signal="button_down" from="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton4" to="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton4" method="_on_TextureButton_button_down"]
 [connection signal="button_down" from="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton2" to="Position3D/Control/ScrollContainer/VBoxContainer/TextureButton2" method="_on_TextureButton_button_down"]
