@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://models/test/Material.material" type="Material" id=1]
 [ext_resource path="res://models/test/Material_002.material" type="Material" id=2]
+[ext_resource path="res://trees/birch2.gd" type="Script" id=3]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Icosphere.002"
@@ -52,6 +53,7 @@ surfaces/1 = {
 height = 8.0
 
 [node name="birch2" type="StaticBody"]
+script = ExtResource( 3 )
 
 [node name="Icosphere002" type="MeshInstance" parent="."]
 transform = Transform( 1.18055, 0, 0, 0, 1.18055, 0, 0, 0, 1.18055, -0.102275, 5.71394, 0.452797 )
