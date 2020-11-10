@@ -184,8 +184,13 @@ func _process(delta):
 	
 	var speed = self.linear_velocity.length()
 	var spd_dif = 0
-	if gear != -1:
+	if gear != -1 and gear != 5:
 		spd_dif = range_curves[gear].interpolate(speed * 3.6 / 100.0)
+	elif gear == 5:
+		gas = -1
+		spd_dif = 1
+	else:
+		gas = 1
 #	if gear > 0:
 #		spd_dif = (optimal_speed[gear] - speed) / 10.0
 #	if sign(self.linear_velocity.cross(right).y) > 0:

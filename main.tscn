@@ -231,7 +231,6 @@ volume_db = 2.0
 script = ExtResource( 9 )
 
 [node name="Gui" parent="." instance=ExtResource( 10 )]
-visible = false
 
 [node name="Position3D" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.9038, -8.19152 )
