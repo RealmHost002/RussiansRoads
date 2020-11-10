@@ -20,13 +20,13 @@
 [ext_resource path="res://world_redactor/buttons/house_choosen.png" type="Texture" id=18]
 [ext_resource path="res://world_redactor/buttons/house.png" type="Texture" id=19]
 
-[sub_resource type="Curve3D" id=6]
+[sub_resource type="Curve3D" id=1]
 _data = {
-"points": PoolVector3Array( 0.94342, -1.23511, -28.1139, -0.94342, 1.23511, 28.1139, 17.4289, -1.55925, 62.1933, 24.6357, 2.12824, 8.54834, -24.6357, -2.12824, -8.54834, -109.021, -2.49357, 196.967, -1.86916, 0.380775, 21.1778, 1.86916, -0.380775, -21.1778, -75.9838, 4.04332, 6.41175, -1.66563, 0.700692, 17.7138, 1.66563, -0.700692, -17.7138, -73.8948, 8.81899, -52.0351, -16.0141, 0, 7.7644, 16.0141, 0, -7.7644, -31.9313, 0, -95.3734, -7.76092, 0, -25.7775, 7.76092, 0, 25.7775, 8.46166, -2.67396, -96.1266, 7.30844, 4.91191, -16.1666, -7.30844, -4.91191, 16.1666, -12.2004, -0.380112, -60.0875, -17.0538, 1.74376, 8.45722, 17.0538, -1.74376, -8.45722, -4.79166, 0, -28.581, 0, 0, 0, 13.8636, 0, 10.0919, 38.1262, 0, -6.74989 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+"points": PoolVector3Array( -52.7308, 21.2953, -8.63873, 52.7308, -21.2953, 8.63873, -321.14, 44.4305, -18.3913, -22.1683, -6.53679, 1.45745, 22.1683, 6.53679, -1.45745, -124.702, 2.15768, -5.02756, -22.3713, -1.02887, 14.8463, 22.3713, 1.02887, -14.8463, -75.9838, 4.04332, 6.41175, -2.13708, -0.16951, 18.3515, 2.13708, 0.16951, -18.3515, -70.4547, 2.97338, -51.7788, -16.0141, 0, 7.7644, 16.0141, 0, -7.7644, -31.9313, 0, -95.3734, -7.76092, 0, -25.7775, 7.76092, 0, 25.7775, 8.46166, -2.67396, -96.1266, 7.30844, 4.91191, -16.1666, -7.30844, -4.91191, 16.1666, -12.2004, -0.380112, -60.0875, -17.0538, 1.74376, 8.45722, 17.0538, -1.74376, -8.45722, -4.79166, 0, -28.581, 2.56628, -0.25489, -29.0954, -2.56628, 0.25489, 29.0954, 78.9811, -0.405266, 35.0964, 6.65007, 0.381994, 17.7816, -6.65007, -0.381994, -17.7816, -9.04782, -0.146215, 57.5973, 16.2035, 0.990021, -6.9698, -16.2035, -0.990021, 6.9698, -47.9283, -2.06699, 21.085, -31.5506, -1.08615, -32.1665, 31.5506, 1.08615, 32.1665, -64.3746, 2.94888, 131.095, -21.152, 0.0413971, -18.4016, 21.152, -0.0413971, 18.4016, -10.8441, 8.4966, 118.9, 17.2727, 0.128815, -8.63547, -17.2727, -0.128815, 8.63547, 6.39436, 23.5633, 188.227, 21.5796, -2.69201, 2.56516, -21.5796, 2.69201, -2.56516, -66.1299, 0.244186, 181.018, 29.6677, -0.928177, -34.2742, -29.6677, 0.928177, 34.2742, -172.955, 0.853256, 202.676, 2.38225, -2.82529, -29.7327, -2.38225, 2.82529, 29.7327, -207.39, 0.825684, 310.258, 0, 0, 0, 0, 0, 0, -177.469, 0.774902, 544.005 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 }
 
-[sub_resource type="Shader" id=9]
+[sub_resource type="Shader" id=2]
 code = "shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
 uniform vec4 albedo : hint_color;
@@ -59,8 +59,8 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=10]
-shader = SubResource( 9 )
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
 shader_param/albedo = Color( 1, 1, 1, 1 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.0
@@ -72,11 +72,11 @@ shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
 shader_param/texture_albedo = ExtResource( 8 )
 
-[sub_resource type="PlaneMesh" id=16]
-material = SubResource( 10 )
+[sub_resource type="PlaneMesh" id=4]
+material = SubResource( 3 )
 size = Vector2( 200, 200 )
 
-[sub_resource type="Shader" id=7]
+[sub_resource type="Shader" id=5]
 code = "shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
 uniform vec4 albedo : hint_color;
@@ -119,8 +119,8 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=8]
-shader = SubResource( 7 )
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
 shader_param/albedo = Color( 1, 1, 1, 1 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.13
@@ -135,19 +135,19 @@ shader_param/texture_albedo = ExtResource( 6 )
 shader_param/texture_albedo2 = ExtResource( 8 )
 shader_param/texture_normal = ExtResource( 5 )
 
-[sub_resource type="PlaneMesh" id=11]
+[sub_resource type="PlaneMesh" id=7]
 size = Vector2( 100, 100 )
 
-[sub_resource type="CubeMesh" id=12]
+[sub_resource type="CubeMesh" id=8]
 size = Vector3( 0.1, 1, 0.1 )
 
-[sub_resource type="SpatialMaterial" id=13]
+[sub_resource type="SpatialMaterial" id=9]
 albedo_color = Color( 0.0784314, 1, 0, 1 )
 
-[sub_resource type="SpatialMaterial" id=14]
+[sub_resource type="SpatialMaterial" id=10]
 albedo_color = Color( 0.121569, 0.027451, 0.960784, 1 )
 
-[sub_resource type="SpatialMaterial" id=15]
+[sub_resource type="SpatialMaterial" id=11]
 albedo_color = Color( 1, 0, 0, 1 )
 
 [node name="Spatial" type="Spatial"]
@@ -156,17 +156,37 @@ albedo_color = Color( 1, 0, 0, 1 )
 transform = Transform( -0.530422, -0.701343, 0.476203, 0, 0.561737, 0.827316, -0.847733, 0.438827, -0.297958, 0, 12.4093, 0 )
 
 [node name="RigidBody" parent="." instance=ExtResource( 4 )]
-transform = Transform( -0.766459, -0.0732695, 0.6381, -0.0588012, 0.997305, 0.0438854, -0.639596, -0.00388473, -0.768701, -8.41894, 5.83647, -20.0727 )
+transform = Transform( -0.153868, -0.0524907, 0.986696, -0.0588012, 0.997305, 0.0438854, -0.98634, -0.0512664, -0.15654, -290.88, 37.2469, -15.4109 )
 
 [node name="Position3D2" type="Position3D" parent="RigidBody"]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.50796, -2.34321 )
 
 [node name="Path" type="Path" parent="."]
-curve = SubResource( 6 )
+curve = SubResource( 1 )
 
 [node name="MeshInstance3" type="MeshInstance" parent="Path"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.9532, -1.95854, -20.2754 )
-mesh = SubResource( 16 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance6" type="MeshInstance" parent="Path"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.9532, -1.95854, 173.753 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance7" type="MeshInstance" parent="Path"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -228.046, -1.95854, 202.5 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance5" type="MeshInstance" parent="Path"]
+transform = Transform( 0.997546, -0.0700176, 0, 0.0700176, 0.997546, 0, 0, 0, 1, 158.581, 4.27231, -20.2754 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Path"]
+transform = Transform( 0.983571, 0.180519, 0, -0.180519, 0.983571, 0, 0, 0, 1, -223.589, 14.697, -20.2754 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="new_road" type="CSGPolygon" parent="Path"]
@@ -180,7 +200,7 @@ path_rotation = 2
 path_local = false
 path_continuous_u = false
 path_joined = false
-material = SubResource( 8 )
+material = SubResource( 6 )
 
 [node name="new_road_ground" type="CSGPolygon" parent="Path"]
 use_collision = true
@@ -194,12 +214,12 @@ path_local = false
 path_continuous_u = false
 path_joined = false
 smooth_faces = true
-material = SubResource( 10 )
+material = SubResource( 3 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.207455, 0 )
 visible = false
-mesh = SubResource( 11 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="trees" type="Spatial" parent="."]
@@ -211,6 +231,7 @@ volume_db = 2.0
 script = ExtResource( 9 )
 
 [node name="Gui" parent="." instance=ExtResource( 10 )]
+visible = false
 
 [node name="Position3D" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.9038, -8.19152 )
@@ -229,18 +250,18 @@ script = ExtResource( 11 )
 [node name="axises" type="Position3D" parent="Position3D"]
 
 [node name="MeshInstance" type="MeshInstance" parent="Position3D/axises"]
-mesh = SubResource( 12 )
-material/0 = SubResource( 13 )
+mesh = SubResource( 8 )
+material/0 = SubResource( 9 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="Position3D/axises"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-mesh = SubResource( 12 )
-material/0 = SubResource( 14 )
+mesh = SubResource( 8 )
+material/0 = SubResource( 10 )
 
 [node name="MeshInstance3" type="MeshInstance" parent="Position3D/axises"]
 transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, 0, 0 )
-mesh = SubResource( 12 )
-material/0 = SubResource( 15 )
+mesh = SubResource( 8 )
+material/0 = SubResource( 11 )
 
 [node name="Control" type="Control" parent="Position3D"]
 margin_right = 40.0

@@ -65,6 +65,7 @@ func _input(event):
 				obj_node.global_transform.origin = result['position']
 				obj_node.add_to_group('obstacles')
 				obj_node.link = path_to_node
+				obj_node.rotation.y = randf() * PI * 2
 				choosen_object = obj_node
 #			trees.append(tree_node)
 #			tree_poses.append(result['position'])

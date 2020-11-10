@@ -21,6 +21,7 @@ var gear_sound1 = load("res://sound/change_gear1.ogg")
 var gear_sound2 = load("res://sound/change_gear2.ogg")
 var stalled_sound = load("res://sound/stalled1.ogg")
 var engine_sound = load("res://sound/starting_engine.ogg")
+var time = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	load_curves()
@@ -163,7 +164,8 @@ func crack():
 
 
 func _process(delta):
-	
+	time += delta
+#	print(time)
 	right = (get_node("right").global_transform.origin - self.global_transform.origin).normalized()
 	rot = lerp(rot, turn, delta * 60 * 0.1)
 	steering = -rot * 0.5
@@ -200,7 +202,7 @@ func _process(delta):
 	
 #	current_stickstate = lerp(current_stickstate, stickstate, 0.1)
 #	get_node("vasya").get_node("AnimationTree").set("parameters/blend_position", current_stickstate)
-	print(self.linear_velocity.length() * 3.6, '     ', clamp(spd_dif, -1 , 1), '   gear    ' , gear)
+#	print(self.linear_velocity.length() * 3.6, '     ', clamp(spd_dif, -1 , 1), '   gear    ' , gear)
 	pass
 
 func anim_gearstate(state):

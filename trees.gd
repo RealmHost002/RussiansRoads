@@ -27,4 +27,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
-#	pass
+#	for child in get_children():
+#		if (child.global_transform.origin - get_node("../RigidBody").global_transform.origin).length() > 50:
+#			child.hide()
+#		else:
+#			child.show()
